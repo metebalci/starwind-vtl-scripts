@@ -91,7 +91,7 @@ $defaultForgetTape = $true
 
 ## Configure Library Replication
 
-StarWind VTL can upload/download the tape files to cloud storage providers. This is configured at library level. The configuration is applied to the library using `configureLibraryReplication.ps1` script. This script uses both `default.ps1` and also `configureLibraryReplicationLocalSettings.ps1`. Because replication configuration contains sensitive material like account keys, `configureLibraryReplicationLocalSettings.ps1` file is not stored in the repo. Instead, a template file `configureLibraryReplicationLocalSettings.s3.ps1` is provided. You should copy/rename this file as `configureLibraryReplicationLocalSettings.ps1` and modify the parameters inside. Then, running `configureLibraryReplication.ps1` will apply the configuration.
+StarWind VTL can upload/download the tape files to cloud storage providers. This is configured at library level. The configuration is applied to the library using `configureLibraryReplication.ps1` script. This script uses both `default.ps1` and also `configureLibraryReplicationLocalSettings.ps1`. Because replication configuration contains sensitive material like account keys, `configureLibraryReplicationLocalSettings.ps1` file is not stored in the repo. Instead, template files `configureLibraryReplicationLocalSettings.*.ps1` are provided. You should copy/rename one of these template files as `configureLibraryReplicationLocalSettings.ps1` and modify the parameters inside. Then, running `configureLibraryReplication.ps1` will apply the configuration.
 
 ```
 .\configureLibraryReplication.ps1
