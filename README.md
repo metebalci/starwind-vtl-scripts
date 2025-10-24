@@ -24,9 +24,9 @@ The scripts can be grouped into a few categories. Their purpose is usually clear
 - show (Target, Library, Tape)
 - create/delete (Target, Library, Tape)
 - insert/eject (Tape): to VTL
-- download/upload (Tape): from/to Cloud
 - writeProtect (Tape)
-- configureReplication: to download/upload Tapes from/to Cloud
+- configureLibraryReplication
+- download/upload (Tape): from/to Cloud
 - membersOf (Server, Target, Library, Tape, Slot): outputs Get-Member for the object, useful for development, not much for normal use
 
 ## Defaults
@@ -87,6 +87,27 @@ $defaultDeleteLocalCopy = $true
 $defaultDeleteFromCloud = $true
 # delete from offline shelf
 $defaultForgetTape = $true
+```
+
+## Configure Library Replication
+
+StarWind VTL can upload/download the tape files to cloud storage providers. This is configured at library level. The configuration is applied to the library using `configureLibraryReplication.ps1` script. This script uses both `default.ps1` and also `configureLibraryReplicationLocalSettings.ps1`. Because replication configuration contains sensitive material like account keys, `configureLibraryReplicationLocalSettings.ps1` file is not stored in the repo. Instead, a template file `configureLibraryReplicationLocalSettings.s3.ps1` is provided. You should copy/rename this file as `configureLibraryReplicationLocalSettings.ps1` and modify the parameters inside. Then, running `configureLibraryReplication.ps1` will apply the configuration.
+
+```
+.\configureLibraryReplication.ps1
+
+Target             : 2
+AccessKey          :
+SecretAccessKey    :
+RegionName         :
+ContainerName      :
+KeepLocal          : -1
+KeepInCloud        : -1
+KeepInStorage1     : -1
+KeepInStorage2     : 1
+DelayBeforeStart   : 0
+ServiceUrl         :
+CreateTapeOnExport : False
 ```
 
 # LICENSE
