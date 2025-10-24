@@ -20,15 +20,14 @@ StarWind VTL Free edition has no GUI management functionality, so the scripts ar
 
 The scripts can be grouped into a few categories. Their purpose is usually clear from their name.
 
-- list (Patterns, Targets, Libraries, Tapes)
+- list (Patterns, Targets, Libraries, Tapes, Slots)
 - show (Target, Library, Tape)
 - create/delete (Target, Library, Tape)
 - insert/eject (Tape): to VTL
 - download/upload (Tape): from/to Cloud
 - writeProtect (Tape)
 - configureReplication: to download/upload Tapes from/to Cloud
-- membersOf (Server, Target, Library, Tape): outputs Get-Member, useful for development, not much for normal use
-- deleteAll: a helper script, useful for development, to delete all libraries and targets
+- membersOf (Server, Target, Library, Tape, Slot): outputs Get-Member for the object, useful for development, not much for normal use
 
 ## Defaults
 
