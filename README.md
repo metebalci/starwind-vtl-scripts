@@ -8,7 +8,7 @@ StarWind VTL Free edition has no GUI management functionality, so the scripts ar
 
 `Device` in StarWind VTL terminology is called `Library` in this repo.
 
-# Requirements
+## Requirements
 
 - Install StarWind VTL Free edition. I am using it on Windows Server 2022 Standard Edition.
 - Clone this repo.
