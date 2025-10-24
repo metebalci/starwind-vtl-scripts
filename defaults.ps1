@@ -10,6 +10,13 @@ $defaultLibraryName = "myvtl"
 $defaultLibraryPath = "My Computer\C\starwind"
 $defaultLibraryPatternIndex = 0
 
+# delete files from disk
+$defaultDeleteLocalCopy = $true
+# delete from cloud
+$defaultDeleteFromCloud = $true
+# delete from offline shelf
+$defaultForgetTape = $true
+
 # constants
 
 $STARWINDS_HEADERS_FOLDER = "C:\Program Files\StarWind Software\StarWind\headers"
@@ -54,4 +61,19 @@ if ((Test-Path variable:libraryPath) -and ($null -eq $libraryPath))
 if ((Test-Path variable:libraryPatternIndex) -and ($null -eq $libraryPatternIndex))
 {
 	$libraryPatternIndex = $defaultLibraryPatternIndex
+}
+
+if ((Test-Path variable:deleteLocalCopy) -and ($null -eq $deleteLocalCopy))
+{
+	$deleteLocalCopy = $defaultDeleteLocalCopy
+}
+
+if ((Test-Path variable:deleteFromCloud) -and ($null -eq $deleteFromCloud))
+{
+	$deleteFromCloud = $defaultDeleteFromCloud
+}
+
+if ((Test-Path variable:forgetTape) -and ($null -eq $forgetTape))
+{
+	$forgetTape = $defaultForgetTape
 }
