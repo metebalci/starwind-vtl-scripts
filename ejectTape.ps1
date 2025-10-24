@@ -25,10 +25,10 @@ try
 		throw "cannot connect to the server"
 	}
 	$device = Get-Device $server -name $libraryName
-	if( !$device )
+	if (!$device)
 	{
 		throw "library not found"
-	}				
+	}
 	if ($slotAddress)
 	{
 		foreach ($slot in $device.Slots)
