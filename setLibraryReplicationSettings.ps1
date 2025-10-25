@@ -1,6 +1,6 @@
 param($addr, $port, $user, $pass,
 	$libraryName,
-	$accessKey, $secretAccessKey, $regionName, $containerName, $target, $serviceUrl,
+	$target, $accessKey, $secretAccessKey, $regionName, $containerName, $serviceUrl,
 	# -1 never delete local copy, 0 delete immediatelly after upload, N delete after N days
 	$keepLocal=0,
 	# -1 never delete from cloud, N>0 delete after N days
@@ -12,10 +12,10 @@ param($addr, $port, $user, $pass,
 	# -1 never upload to cloud, 0 upload immediate after export, N>0 after N days
 	$delayBeforeStart=0,
 	# create new tape on export: 1-Yes, 0-No
-	$createTapeOnExport=0)
+	$createTapeOnExport=$false)
 
 . "$PSScriptRoot\defaults.ps1"
-. "$PSScriptRoot\configureLibraryReplicationLocalSettings.ps1"
+. "$PSScriptRoot\setLibraryReplicationSettingsLocal.ps1"
 
 Import-Module StarWindX
 
@@ -33,8 +33,8 @@ try
 	{
 		throw "library not found"
 	}
-	$settings = new-object -ComObject StarWindX.VTLReplicationSettings	
-	$settings.Target=$target
+	$settings = new-object -ComObject StarWindX.VTLReplicationSettings
+	$settings.Target=[StarWindVtlReplicationTarget]$target
 	$settings.AccessKey=$accessKey
 	$settings.SecretAccessKey=$secretAccessKey
 	$settings.RegionName=$regionName
@@ -44,11 +44,19 @@ try
 	$settings.KeepInStorage1=$keepInStorage1
 	$settings.KeepInStorage2=$keepInStorage2
 	$settings.DelayBeforeStart=$delayBeforeStart
-	$settings.ServiceUrl=$serviceUrl
-	$settings.CreateTapeOnExport=$createTapeOnExport
+	$settings.ServiceUrl=[string]$serviceUrl
+	$settings.CreateTapeOnExport=[bool]$createTapeOnExport
 	$res = $device.CheckReplicationCredentials($settings)
+	if ($res -ne 0)
+	{
+		throw "Error when checking replication credentials: " + $res
+	}
 	$res = $device.ApplyReplicationSettings($settings)
-	$device.ReplicationSettings
+	if ($res -ne 0)
+	{
+		throw "Error when applying replication settings: " + $res
+	}
+	$device.ReplicationSettings | Select-Object * -ExcludeProperty AccessKey, SecretAccessKey
 }
 finally
 {

@@ -3,4 +3,5 @@ $accessKey = "access key"
 $secretAccessKey = "secret access key"
 $regionName = "region name"
 $containerName = "bucket name"
-$serviceUrl = "https://s3.wasabisys.com"
+# see https://docs.wasabi.com/docs/what-are-the-service-urls-for-wasabi-s-different-storage-regions
+$serviceUrl = "service url"
