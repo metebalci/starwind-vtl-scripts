@@ -23,9 +23,9 @@ The scripts can be grouped into a few categories. Their purpose is usually clear
 - list (Patterns, Targets, Libraries, Tapes, Slots)
 - show (Target, Library, Tape)
 - create/delete (Target, Library, Tape)
-- insert/eject (Tape): to VTL
-- writeProtect (Tape)
-- configureLibraryReplication
+- (insert/eject) Tape: to VTL
+- writeProtectTape
+- (get/set) LibraryReplicationSettings
 - download/upload (Tape): from/to Cloud
 - membersOf (Server, Target, Library, Tape, Slot): outputs Get-Member for the object, useful for development, not much for normal use
 
@@ -91,24 +91,26 @@ $defaultForgetTape = $true
 
 ## Configure Library Replication
 
-StarWind VTL can upload/download the tape files to cloud storage providers. This is configured at library level. The configuration is applied to the library using `configureLibraryReplication.ps1` script. This script uses both `default.ps1` and also `configureLibraryReplicationLocalSettings.ps1`. Because replication configuration contains sensitive material like account keys, `configureLibraryReplicationLocalSettings.ps1` file is not stored in the repo. Instead, template files `configureLibraryReplicationLocalSettings.*.ps1` are provided. You should copy/rename one of these template files as `configureLibraryReplicationLocalSettings.ps1` and modify the parameters inside. Then, running `configureLibraryReplication.ps1` will apply the configuration.
+StarWind VTL can upload/download the tape files to cloud storage providers. This is configured at library level. The configuration is applied to the library using `setLibraryReplicationSettings.ps1` script. This script uses both `default.ps1` and also `setLibraryReplicationSettingsLocal.ps1`. Because replication configuration contains sensitive material like account keys, `setLibraryReplicationSettingsLocal.ps1` file is not stored in the repo. Instead, template files `setLibraryReplicationSettingsLocal.*.ps1` are provided. You should copy/rename one of these template files as `setLibraryReplicationSettingsLocal.ps1` and modify the parameters inside. Then, running `setLibraryReplicationSettings.ps1` will apply the configuration.
 
 ```
-.\configureLibraryReplication.ps1
+.\setLibraryReplicationSettings.ps1
 
-Target             : 2
-AccessKey          :
-SecretAccessKey    :
-RegionName         :
-ContainerName      :
-KeepLocal          : -1
+Target             : 32
+RegionName         : eu-central-2
+ContainerName      : myvtl
+KeepLocal          : 0
 KeepInCloud        : -1
 KeepInStorage1     : -1
-KeepInStorage2     : 1
+KeepInStorage2     : -1
 DelayBeforeStart   : 0
-ServiceUrl         :
+ServiceUrl         : https://s3.eu-central-2.wasabisys.com
 CreateTapeOnExport : False
 ```
+
+The AccessKey and SecretAccessKey is not shown in the output.
+
+The current replication setting can be viewed with `getLibraryReplicationSettings.ps1` script. If you need to view the keys, `-showKeys` switch can be used.
 
 # LICENSE
 
