@@ -111,9 +111,7 @@ $defaultForgetTape = $true
 
 ## Tutorial
 
-```
-This tutorial assumes a clean VTL Free installation and it will use the defaults. If you already have mytarget and myvtl, you should delete them first.
-```
+This tutorial assumes a clean VTL Free installation and it will use the defaults. If you already have default target and library (mytarget and myvtl), you should delete them first.
 
 Before doing anything, lets see which patterns are available. A pattern is basically a library type.
 
