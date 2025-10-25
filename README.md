@@ -411,6 +411,57 @@ The current replication setting can be viewed with `getLibraryReplicationSetting
 
 When the replication is configured, `uploadTape.ps1` and `downloadTape.ps1` scripts can be used. In order to be uploaded/downloaded, the tape should be on the offline shelf, it should be ejected first.
 
+## Using VTL on Linux
+
+When the Target is accessed through iSCSI (discover, login), it is shown as this:
+
+```
+$ lsscsi
+...
+[8:0:0:0]    mediumx HP       MSL G3 Series    9.50  /dev/sch0
+[8:0:0:1]    tape    HPE      Ultrium 8-SCSI   HB87  /dev/st0
+[8:0:0:2]    tape    HPE      Ultrium 8-SCSI   HB87  /dev/st1
+[8:0:0:3]    tape    HPE      Ultrium 8-SCSI   HB87  /dev/st2
+[8:0:0:4]    tape    HPE      Ultrium 8-SCSI   HB87  /dev/st3
+```
+
+The `/dev/sch0` is the autochanger you can use with `mtx` command.
+
+The VTL product type is:
+
+```
+$ mtx -f /dev/sch0 inquiry
+Product Type: Medium Changer
+Vendor ID: 'HP      '
+Product ID: 'MSL G3 Series   '
+Revision: '9.50'
+Attached Changer API: No
+```
+
+and its status:
+
+```
+$ mtx -f /dev/sch0 status
+  Storage Changer /dev/sch0:4 Drives, 99 Slots ( 3 Import/Export )
+Data Transfer Element 0:Empty
+Data Transfer Element 1:Empty
+Data Transfer Element 2:Empty
+Data Transfer Element 3:Empty
+      Storage Element 1:Empty
+      Storage Element 2:Empty
+      ...
+      ...
+      Storage Element 95:Empty
+      Storage Element 96:Empty
+      Storage Element 97 IMPORT/EXPORT:Empty
+      Storage Element 98 IMPORT/EXPORT:Empty
+      Storage Element 99 IMPORT/EXPORT:Empty
+```
+
+The tapes can be loaded into drives with `load` and unloaded from drives with `unload` command.
+
+The four drives (st0..4) can be used like a locally mounted tape drive.
+
 # LICENSE
 
 Copyright (C) 2026 Mete Balci
