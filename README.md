@@ -121,7 +121,7 @@ HP_MSL8096_LTO8
 IBM_TS03584_LTO7
 ```
 
-Because the default value of `libraryPatternIndex` is 0, in this tutorial, we will be creating a library of type HP_MSL8096_LTO8. This is a 96 slot (virtual) tape library with four tape drives. I think it is originally only for LTO-3 and LTO-4 but in this virtual configuration it consists of LTO-8 drives (12TB uncompressed capacity).
+Because the default value of `libraryPatternIndex` is 0, in this tutorial, we will be creating a library of type HP_MSL8096_LTO8. [HP StorageWorks MSL8096](https://www.hpe.com/psnow/doc/c04282554) is a real (but discontinued) 96 slot tape library. Thus, the VTL will also have 96 virtual slots with four tape drives. I think it is originally only for LTO-3 and LTO-4 but in this virtual configuration it consists of LTO-8 drives (12TB uncompressed capacity).
 
 First, lets create a target (default target=`mytarget`). If the operation is successful, it shows the detailed information (same as show script output) about the created target.
 
